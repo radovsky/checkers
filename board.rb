@@ -13,13 +13,13 @@ class Board
   def place_pieces
     @grid.each_with_index do |row, i|
       if i == 0 || i == 2
-        row.each_index { |i| row[i] = Piece.new(:black) if i.odd? }
+        row.each_index { |j| row[j] = Piece.new(:black, self, [i, j]) if j.odd? }
       elsif i == 1
-        row.each_index { |i| row[i] = Piece.new(:black) if i.even? }
+        row.each_index { |j| row[j] = Piece.new(:black, self, [i, j]) if j.even? }
       elsif i == 5 || i == 7
-        row.each_index { |i| row[i] = Piece.new(:white) if i.even? }
+        row.each_index { |j| row[j] = Piece.new(:white, self, [i, j]) if j.even? }
       elsif i == 6
-        row.each_index { |i| row[i] = Piece.new(:white) if i.odd? }
+        row.each_index { |j| row[j] = Piece.new(:white, self, [i, j]) if j.odd? }
       end
     end
   end
