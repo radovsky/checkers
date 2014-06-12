@@ -6,3 +6,5 @@ b = Board.new
 puts
 puts b.render
 puts
+
+

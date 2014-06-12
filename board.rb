@@ -10,7 +10,6 @@ class Board
       hash[piece.pos] = piece
       hash
     end
-    update_grid
   end
   
   def initial_positions
@@ -30,6 +29,7 @@ class Board
   end
   
   def update_grid
+    @grid = Array.new(8) { Array.new(8) { nil } }
     @positions.each { |k, v| @grid[k[0]][k[1]] = v }
   end
   
@@ -38,7 +38,7 @@ class Board
   end
   
   def render
-    update_grid
+    self.update_grid
     @grid.map do |row|
       row.map { |piece| piece.nil? ? '.' : piece.render }.join("  ")
     end.join("\n")

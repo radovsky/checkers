@@ -21,7 +21,7 @@ class Piece
     return WHITE_DIRS + BLACK_DIRS if @king
   end
   
-  def perform_slide
+  def possible_slides
     possible_moves = []
     self.move_dirs.each_with_index do |dir|
       new_dir = [ dir[0] + @pos[0], dir[1] + @pos[1] ]
@@ -38,8 +38,12 @@ class Piece
   
   def move(end_pos)
     if possible_slides.include?(end_pos)
+      @board.positions.delete(@pos)
       @pos = end_pos
+      @board.positions[@pos] = self
     end
+    @board.update_grid
+    nil
   end
   
   def dup
