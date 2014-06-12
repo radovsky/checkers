@@ -10,6 +10,7 @@ class Board
       hash[piece.pos] = piece
       hash
     end
+    self.update_grid
   end
   
   def initial_positions
