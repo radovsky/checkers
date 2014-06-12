@@ -23,15 +23,27 @@ class Piece
   
   def perform_slide
     possible_moves = []
-    self.move_dirs.each do |dir|
+    self.move_dirs.each_with_index do |dir|
       new_dir = [ dir[0] + @pos[0], dir[1] + @pos[1] ]
       possible_moves << new_dir if @board.grid[new_dir[0]][new_dir[1]] == nil
     end
-    possible_moves
+    possible_moves.select do |move|
+      (0..7).include?(move[0]) && (0..7).include?(move[1])
+    end
   end
   
   def perform_jump
     
+  end
+  
+  def move(end_pos)
+    if possible_slides.include?(end_pos)
+      @pos = end_pos
+    end
+  end
+  
+  def dup
+    self.class.new(@color, @board, @pos)
   end
   
   def render
