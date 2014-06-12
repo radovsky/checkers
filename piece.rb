@@ -1,3 +1,4 @@
+# encoding: utf-8
 require './board'
 
 class Piece
@@ -11,17 +12,22 @@ class Piece
     @pos = pos
   end
   
-  WHITE_DIRS = [ [1, 1], [1, -1] ]
-  BLACK_DIRS = [ [-1, 1], [-1, -1] ]
+  BLACK_DIRS = [ [1, 1], [1, -1] ]
+  WHITE_DIRS = [ [-1, 1], [-1, -1] ]
   
   def move_dirs
-    WHITE_DIRS if @color == :white && !@king
-    BLACK_DIRS if @color == :black && !@king
-    WHITE_DIRS + BLACK_DIRS if @king
+    return WHITE_DIRS if @color == :white && !@king
+    return BLACK_DIRS if @color == :black && !@king
+    return WHITE_DIRS + BLACK_DIRS if @king
   end
   
   def perform_slide
-    
+    possible_moves = []
+    self.move_dirs.each do |dir|
+      new_dir = [ dir[0] + @pos[0], dir[1] + @pos[1] ]
+      possible_moves << new_dir if @board.grid[new_dir[0]][new_dir[1]] == nil
+    end
+    possible_moves
   end
   
   def perform_jump
@@ -29,8 +35,8 @@ class Piece
   end
   
   def render
-    return "0" if @color == :white && !@king
-    return "O" if @color == :black && !@king
+    return "❂" if @color == :white && !@king
+    return "❍" if @color == :black && !@king
   end
   
 end

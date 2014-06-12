@@ -9,7 +9,6 @@ class Board
     place_pieces
   end
   
-  
   def place_pieces
     @grid.each_with_index do |row, i|
       if i == 0 || i == 2
@@ -24,12 +23,15 @@ class Board
     end
   end
   
+  def pos(piece)
+    @grid[piece.pos[0]][piece.pos[1]]
+  end
   
   def render
     @grid.map do |row|
       row.map do |piece|
         piece.nil? ? '.' : piece.render
-      end.join(" ")
+      end.join("  ")
     end.join("\n")
   end
   
