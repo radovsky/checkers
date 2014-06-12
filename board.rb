@@ -1,49 +1,38 @@
+require './piece'
+
 class Board
+  
+  attr_accessor :grid
   
   def initialize
     @grid = Array.new(8) { Array.new(8) { nil } }
+    place_pieces
   end
   
   
   def place_pieces
-    
-    @grid[0..2].each_with_index do |row, i|
-      if i.even?
-        row.each_with_index do |sq, j|
-          sq = Piece.new(:red) if j.odd?
-        end
-      elsif i.odd?
-        row.each_with_index do |sq, j|
-          sq = Piece.new(:red) if j.even?
-        end
+    @grid.each_with_index do |row, i|
+      if i == 0 || i == 2
+        row.each_index { |i| row[i] = Piece.new(:black) if i.odd? }
+      elsif i == 1
+        row.each_index { |i| row[i] = Piece.new(:black) if i.even? }
+      elsif i == 5 || i == 7
+        row.each_index { |i| row[i] = Piece.new(:white) if i.even? }
+      elsif i == 6
+        row.each_index { |i| row[i] = Piece.new(:white) if i.odd? }
       end
     end
-    
-    @grid[5..7].each_with_index do |row, i|
-      if i.even?
-        row.each_with_index do |sq, j|
-          sq = Piece.new(:black) if j.odd?
-        end
-      elsif i.odd?
-        row.each_with_index do |sq, j|
-          sq = Piece.new(:black) if j.even?
-        end
-      end
-    end
-    
   end
-  
-    # 
-  # def fill_row(is_even, color)
-  #   if is_even:
-  #     row.each_with_index do ||
-  #   end
-  # end
   
   
   def render
-    
+    @grid.map do |row|
+      row.map do |piece|
+        piece.nil? ? '.' : piece.render
+      end.join(" ")
+    end.join("\n")
   end
+  
   
   def move
     

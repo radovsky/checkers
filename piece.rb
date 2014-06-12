@@ -12,6 +12,9 @@ class Piece
     
   end
   
-  
+  def render
+    return "0" if @color == :white && @king == false
+    return "O" if @color == :black && @king == false
+  end
   
 end
