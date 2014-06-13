@@ -35,19 +35,20 @@ class Piece
   end
   
   def possible_slides
-    
     self.get_new_positions(1).select do |new_pos|
-      @board.grid[new_pos[0]][new_pos[1]] == nil && in_bounds?(new_pos)
+      in_bounds?(new_pos)
     end
-    
   end
   
   def possible_jumps
-    
+    # jumps = []
+    # self.move_dirs.each do |dir|
+    #   if 
+    # end
   end 
   
   def perform_slide(end_pos)
-    if possible_slides.include?(end_pos)
+    if possible_slides.include?(end_pos) && end_pos.nil?
       @board.positions.delete(@pos)
       @pos = end_pos
       @board.positions[@pos] = self

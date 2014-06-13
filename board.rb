@@ -13,6 +13,11 @@ class Board
     self.update_grid
   end
   
+  def [](pos)
+    y, x = pos
+    self.grid[y][x]
+  end
+  
   def dup
     new_board = Board.new
     new_board.grid = Array.new(8) { Array.new(8) { nil } }
