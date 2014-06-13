@@ -5,11 +5,11 @@ class Piece
   
   attr_accessor :color, :board, :king, :pos
   
-  def initialize(color, board, pos)
+  def initialize(color, board, pos, king=false)
     @color = color
     @board = board
-    @king = false
     @pos = pos
+    @king = king
   end
   
   BLACK_DIRS = [ [1, 1], [1, -1] ]
@@ -43,19 +43,7 @@ class Piece
   end
   
   def possible_jumps
-    jumps = []
-    self.move_dirs.each do |dir|
-      if @board.grid[@pos[0] + dir[0]][@pos[1] + dir[1]].class == Piece
-        if @board.grid[@pos[0] + dir[0]][@pos[1] + dir[1]].color != @color
-          if @board.grid[@pos[0] + dir[0] * 2][@pos[1] + dir[1] * 2] == nil
-            if in_bounds?([@pos[0] + dir[0] * 2, @pos[1] + dir[1] * 2])
-              jumps << [@pos[0] + dir[0] * 2, @pos[1] + dir[1] * 2]
-            end
-          end
-        end
-      end
-    end
-    jumps
+    
   end 
   
   def perform_slide(end_pos)
@@ -70,10 +58,8 @@ class Piece
     nil
   end
   
-  
-  
-  def dup
-    self.class.new(@color, @board, @pos)
+  def perform_jump(end_pos)
+
   end
   
   def render

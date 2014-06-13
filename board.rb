@@ -4,13 +4,24 @@ class Board
   
   attr_accessor :grid, :positions
   
-  def initialize
+  def initialize(fill=true)
     @grid = Array.new(8) { Array.new(8) { nil } }
     @positions = initial_positions.reduce({}) do |hash, piece|
       hash[piece.pos] = piece
       hash
     end
     self.update_grid
+  end
+  
+  def dup
+    new_board = Board.new
+    new_board.grid = Array.new(8) { Array.new(8) { nil } }
+    new_board.positions = {}
+    @positions.each do |pos, piece|
+      new_board.positions[pos] = Piece.new(piece.color, new_board, piece.pos, piece.king)
+    end
+    new_board.update_grid
+    new_board
   end
   
   def initial_positions
